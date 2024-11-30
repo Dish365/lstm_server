@@ -1,0 +1,24 @@
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/var/www/lstm_server/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/lstm_server/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/lstm_server/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/var/www/lstm_server/venv/lib/python3.12/site-packages/django/http/request.py", line 141, in get_host
+    if domain and validate_host(domain, allowed_hosts):
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/lstm_server/venv/lib/python3.12/site-packages/django/http/request.py", line 732, in validate_host
+    return any(
+           ^^^^
+  File "/var/www/lstm_server/venv/lib/python3.12/site-packages/django/http/request.py", line 733, in <genexpr>
+    pattern == "*" or is_same_domain(host, pattern) for pattern in allowed_hosts
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/lstm_server/venv/lib/python3.12/site-packages/django/utils/http.py", line 234, in is_same_domain
+    pattern = pattern.lower()
+              ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'lower'

@@ -1,0 +1,17 @@
+[Unit]
+Description=gunicorn daemon for fsroas.com
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/var/www/lstm_server
+Environment="PATH=/var/www/lstm_server/venv/bin"
+ExecStart=/var/www/lstm_server/venv/bin/gunicorn \
+    --access-logfile - \
+    --workers 3 \
+    --bind unix:/run/gunicorn.sock \
+    lstm_server.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
