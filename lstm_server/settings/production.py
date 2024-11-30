@@ -1,25 +1,43 @@
 from .base import *
 import os
+from dotenv import load_dotenv
 
-DEBUG = False
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+load_dotenv()
 
-# Domain settings
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 ALLOWED_HOSTS = [
     'fsroas.com',
     'www.fsroas.com',
-    os.environ.get('ALLOWED_HOSTS', '').split(',')
 ]
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     'https://fsroas.com',
     'https://www.fsroas.com',
-    *os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
 ]
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'OPTIONS',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 # Security settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -53,13 +71,22 @@ LOGGING = {
         'file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'filename': '/var/log/gunicorn/django.log',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': 'INFO',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'api': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
             'propagate': True,
         },
     },

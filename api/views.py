@@ -548,3 +548,11 @@ def simulate(request):
     except Exception as e:
         print(f"Simulation error: {str(e)}")
         return JsonResponse({"error": str(e)}, status=500)
+
+@api_view(['GET'])
+def health_check(request):
+    """API health check endpoint"""
+    return JsonResponse({
+        'status': 'healthy',
+        'message': 'API is running'
+    })
