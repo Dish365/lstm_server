@@ -32,6 +32,22 @@ ENV_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', ENV_MODEL_FILENAME)
 ENV_FEATURE_SCALER_PATH = os.path.join(settings.BASE_DIR, 'models', ENV_FEATURE_SCALER_FILENAME)
 ENV_TARGET_SCALER_PATH = os.path.join(settings.BASE_DIR, 'models', ENV_TARGET_SCALER_FILENAME)
 
+# Debug logging
+print("Current working directory:", os.getcwd())
+print("BASE_DIR:", settings.BASE_DIR)
+print("Model paths:")
+print(f"Life expectancy model: {MODEL_PATH}")
+print(f"Life expectancy feature scaler: {FEATURE_SCALER_PATH}")
+print(f"Life expectancy target scaler: {TARGET_SCALER_PATH}")
+print(f"Water share model: {ENV_MODEL_PATH}")
+print(f"Water share feature scaler: {ENV_FEATURE_SCALER_PATH}")
+print(f"Water share target scaler: {ENV_TARGET_SCALER_PATH}")
+
+# Verify file existence
+for path in [MODEL_PATH, FEATURE_SCALER_PATH, TARGET_SCALER_PATH, 
+             ENV_MODEL_PATH, ENV_FEATURE_SCALER_PATH, ENV_TARGET_SCALER_PATH]:
+    print(f"File exists {path}: {os.path.exists(path)}")
+
 # Feature names for both models
 FEATURE_NAMES = [
     'FP index', 'LP index', 'Vegetal Pds-FS', 'Cereals -FS', 'Starchy Rts-FS',
