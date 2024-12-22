@@ -7,8 +7,10 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/var/www/lstm_server
 Environment="PATH=/var/www/lstm_server/venv/bin"
+Environment="DJANGO_SETTINGS_MODULE=lstm_server.settings.production"
 ExecStart=/var/www/lstm_server/venv/bin/gunicorn \
-    --access-logfile - \
+    --access-logfile /var/www/lstm_server/logs/gunicorn-access.log \
+    --error-logfile /var/www/lstm_server/logs/gunicorn-error.log \
     --workers 3 \
     --bind unix:/run/gunicorn/gunicorn.sock \
     lstm_server.wsgi:application
